@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<title>Nuestra historia ❤️</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400&display=swap" rel="stylesheet">
+
+<style>
+
+body {
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url("fondo.jpg");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    overflow: hidden;
+}
+
+/* CORAZONES */
+.heart {
+    position: fixed;
+    bottom: -10px;
+    animation: floatUp linear infinite;
+}
+@keyframes floatUp {
+    0% { transform: translateY(0); opacity: 1; }
+    100% { transform: translateY(-100vh); opacity: 0; }
+}
+
+/* PANTALLAS */
+.screen {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    opacity: 0;
+    transform: scale(0.95);
+    pointer-events: none;
+    transition: all 0.8s ease;
+
+    overflow: hidden;
+}
+.screen.active {
+    opacity: 1;
+    transform: scale(1);
+    pointer-events: auto;
+}
+
+/* SCROLL SOLO PARA PAGINAS LARGAS */
+.screen.scroll {
+    overflow-y: auto;
+    padding: 40px 20px;
+}
+
+/* SCROLL BONITO */
+.screen.scroll::-webkit-scrollbar {
+    width: 6px;
+}
+.screen.scroll::-webkit-scrollbar-thumb {
+    background: rgba(255,255,255,0.5);
+    border-radius: 10px;
+}
+
+/* TEXTO */
+h1 {
+    font-family: 'Great Vibes', cursive;
+    font-size: 70px;
+    color: #fff;
+}
+p {
+    max-width: 600px;
+    font-size: 22px;
+    color: #fff;
+}
+
+/* CONTADOR */
+#contador {
+    font-size: 28px;
+    color: #ffb3cc;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* BOTONES */
+button {
+    margin-top: 20px;
+    padding: 14px 28px;
+    background: linear-gradient(45deg, #ff4d88, #ff1a66);
+    border: none;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    transition: 0.3s;
+}
+button:hover { transform: scale(1.1); }
+
+/* BOTON NO GLOBAL */
+#noBtn {
+    position: fixed;
+}
+
+/* INPUT */
+input {
+    padding: 12px;
+    border-radius: 15px;
+    border: none;
+    text-align: center;
+    margin-top: 10px;
+    font-size: 16px;
+}
+
+/* IMÁGENES */
+img {
+    max-width: 220px;
+    border-radius: 15px;
+    margin-top: 15px;
+    animation: zoom 10s infinite alternate;
+}
+@keyframes zoom {
+    from { transform: scale(1); }
+    to { transform: scale(1.1); }
+}
+
+/* IMÁGENES LADO A LADO */
+.img-container {
+    display: flex;
+    gap: 20px;
+}
+
+/* TITULO */
+.titulo-grande {
+    font-family: 'Great Vibes', cursive;
+    font-size: 70px;
+    font-style: italic;
+}
+
+/* DESBLOQUEO */
+#bloqueo {
+    transition: all 0.5s ease;
+}
+#bloqueo.oculto {
+    opacity: 0;
+    transform: scale(0.9);
+}
+
+#contenidoSecreto {
+    display: none;
+    opacity: 0;
+    transform: scale(0.8);
+    transition: all 1s ease;
+
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(8px);
+}
+#contenidoSecreto.visible {
+    opacity: 1;
+    transform: scale(1);
+}
+
+/* CUADRO */
+.cuadro-transparente {
+    background: rgba(255, 255, 255, 0.15);
+    padding: 20px;
+    border-radius: 20px;
+    backdrop-filter: blur(8px);
+}
+
+/* RESPUESTA */
+.respuesta-box {
+    margin-top: 20px;
+    padding: 20px;
+    border-radius: 20px;
+    background: rgba(255, 105, 180, 0.25);
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="screen active">
+    <h1>Esto es solo para ti… 💌</h1>
+    <p>¿Te gustaría escucharlo? 💖🎶</p>
+    <button onclick="iniciarMusica()">Reproducir 💌</button>
+    <button onclick="sinMusica()">Prefiero el silencio 🤍</button>
+</div>
+
+<div class="screen">
+    <h1>Para ti, Minena ❤️</h1>
+    <p id="intro"></p>
+    <button onclick="next()">Vamos… 💌</button>
+</div>
+
+<div class="screen">
+    <p>
+        Desde que llegaste a mi vida… 💖<br><br>
+        empezamos a crear momentos que se quedaron en mí…<br>
+        momentos que nunca voy a olvidar 🥺📸
+    </p>
+    <button onclick="next()">Avanzar 💌</button>
+</div>
+
+<div class="screen">
+    <div class="img-container">
+        <img src="foto1.jpg">
+        <img src="foto2.jpg">
+    </div>
+
+    <p>
+        Cada uno de estos momentos contigo… 🥺💞<br><br>
+        no son solo recuerdos…<br>
+        Son cosas que significaron más de lo que imaginas 💖<br>
+        como ese día…<br>
+        En el que volviste a celebrar tu cumpleaños ✨<br>
+        y otros… donde simplemente éramos nosotros 💌
+    </p>
+
+    <button onclick="next()">Sigue conmigo 💖</button>
+</div>
+
+<div class="screen">
+    <p class="titulo-grande">Llevamos juntos 💕</p>
+    <div id="contador"></div>
+    <p>y contando… 💖</p>
+    <button onclick="next()">No te vayas todavía…</button>
+</div>
+
+<!-- PAGINA 7 CON SCROLL -->
+<div class="screen scroll">
+    <div id="bloqueo">
+        <p>Antes de continuar… 🔐</p>
+        <input type="text" id="inputPass" placeholder="Comienzo... 💖">
+        <button onclick="verificar()">Desbloquear 💖</button>
+        <p id="error" style="color:red; display:none;">Intenta de nuevo</p>
+    </div>
+
+    <div id="contenidoSecreto">
+        <img src="secreta.jpg">
+        <p>Este momento contigo significa muchísimo para mí 💕</p>
+
+        <p style="max-width: 1000px; font-size: 18px; line-height: 1.4;">
+        Hay algo de ese día que nunca te dije… 🥺💛<br><br>
+        Era septiembre… el día de las flores amarillas 🌼, y aunque no tenía cómo comprarte unas… terminamos en ese parque, rodeados de todo ese verde… 💭<br><br>
+        jugando como niños, riendo sin pensar en nada más… y después… sentados juntos, mientras tú empezabas a ponerme esas pequeñas flores en el cabello… 🥺💛<br><br>
+        yo solo te miraba… viendo lo tranquila que estabas, lo feliz que te veías en ese momento 💖<br><br>
+        y aunque nunca te lo dije… yo soy alérgico al polen… y estar ahí, tan cerca del pasto, me hacía daño…<br><br>
+        pero no me importó… porque tú estabas feliz 🥺 y para mí, eso era más importante que cualquier cosa 💌<br><br>
+        mientras tú jugabas con esas flores… yo intentaba hacerte una pequeña corona… 🌼, y sin darme cuenta, el tiempo dejó de importar…<br><br>
+        no hablaba mucho… pero dentro de mí había un silencio que nunca había sentido… y no era vacío… era paz… 💖<br><br>
+        la misma paz que siempre le pedí a la vida… y que, sin darme cuenta, me la dio en forma de ti 🥺💛<br><br>
+        una niña tan linda… tan sencilla… tan tú… que en ese momento entendí… que eras justo lo que siempre estuve buscando 💌
+        </p>
+
+        <button onclick="next()">Ahora lo sabes 💖</button>
+    </div>
+</div>
+
+<div class="screen">
+    <div class="cuadro-transparente">
+        <p>Hay algo que llevaba tiempo queriendo preguntarte… 🥺</p>
+    </div>
+    <button onclick="next()">Resolver...💭💌</button>
+</div>
+
+<div class="screen">
+    <p style="font-style: italic;">¿Aceptas quedarte conmigo… y formar una vida juntos? 💖💍</p>
+
+    <button onclick="si()">Sí, quiero 💍</button>
+    <button id="noBtn" onmouseover="no()" onclick="no()">No lo sé aún…💭</button>
+
+    <div id="respuesta" class="respuesta-box" style="display:none;">
+        Oww… yo también acepto 🥹💖
+        <br><br>
+        <button onclick="next()">Gracias por elegirme… 💌</button>
+    </div>
+</div>
+
+<div class="screen">
+    <p>Antes de terminar… 💭</p>
+    <button onclick="next()">Sigamos escribiendo esto 💌</button>
+</div>
+
+<div class="screen scroll" style="justify-content: flex-start;">
+
+    <img src="final.jpg">
+
+    <h1>Te elijo… hoy y siempre 💖</h1>
+    </p>
+<p>
+
+Te elijo…<br>
+porque después de todo lo que hemos pasado juntos…<br>
+estos 5 meses… que aunque parezcan poco…<br>
+para mí han significado todo 🥺<br><br>
+y puedo decir con total seguridad…<br>
+que eres la persona con la que quiero quedarme toda la vida…<br><br>
+la que elijo sobre todas las cosas…<br>
+la que pondría incluso antes que a mí mismo…<br><br>
+con la que quiero formar una vida…<br>
+tener hijos… y construir algo real 💍<br><br>
+porque yo te amo…<br>
+con todo mi corazón 💖<br><br>
+y hay algo que siempre vamos a decir…<br>
+y quiero que quede claro… 💭<br><br>
+no fue casualidad…<br>
+no fue suerte…<br><br>
+fuiste tú…<br>
+llegando en el momento indicado 💌<br><br>
+tú… la que llegó sin hacer ruido…<br>
+pero que cambió todo en mí sin que me diera cuenta…<br><br>
+con esa forma tan linda de ser…<br>
+tan sencilla… tan real… 🥺<br><br>
+te volviste mi lugar seguro…<br>
+mi hogar 💖<br><br>
+porque contigo…<br>
+no necesito a nadie más…<br>
+no necesito aparentar nada…<br><br>
+puedo ser solo yo…<br>
+y aun así sentirme suficiente 💌<br><br>
+y entre todos esos momentos…<br>
+risas, recuerdos, días simples…<br><br>
+me di cuenta de algo… 💭<br><br>
+que no quiero buscar a nadie más…<br>
+que no quiero conocer otra historia…<br><br>
+porque si es contigo…<br>
+ya lo encontré todo 💖<br><br>
+y si la vida me diera a elegir otra vez…<br>
+volvería a escogerte…<br><br>
+una… y mil veces más 💌<br><br>
+porque al final…<br>
+no se trata de encontrar a alguien perfecto…<br><br>
+sino de encontrar a alguien…<br>
+con quien todo se sienta en paz 💖<br><br>
+y esa persona…<br><br>
+
+eres tú 🥺💍<br><br>
+
+...<br><br>
+
+</p>
+    
+
+</div>
+
+<audio id="musica" loop>
+    <source src="TurningPage.mp3">
+</audio>
+
+<script>
+
+let screens=document.querySelectorAll(".screen");
+let index=0;
+
+function next(){
+    screens[index].classList.remove("active");
+    index++;
+    if(index<screens.length){
+        screens[index].classList.add("active");
+    }
+}
+
+/* CORAZONES */
+setInterval(()=>{
+let h=document.createElement("div");
+h.className="heart";
+h.innerHTML="💖";
+h.style.left=Math.random()*100+"vw";
+h.style.fontSize=(Math.random()*20+10)+"px";
+h.style.animationDuration=(Math.random()*5+5)+"s";
+document.body.appendChild(h);
+setTimeout(()=>h.remove(),8000);
+},300);
+
+/* MUSICA */
+function iniciarMusica(){
+document.getElementById("musica").play();
+next();
+}
+function sinMusica(){next();}
+
+/* TEXTO */
+let texto="Hay algo que quiero decirte…";
+let i=0;
+(function escribir(){
+if(i<texto.length){
+document.getElementById("intro").innerHTML+=texto[i++];
+setTimeout(escribir,50);
+}
+})();
+
+/* CONTADOR */
+let inicio=new Date("2025-10-27");
+setInterval(()=>{
+let ahora=new Date();
+let diff=ahora-inicio;
+let d=Math.floor(diff/86400000);
+let h=Math.floor(diff/3600000)%24;
+let m=Math.floor(diff/60000)%60;
+document.getElementById("contador").innerHTML=
+d+" días, "+h+" horas, "+m+" min 💕";
+},1000);
+
+/* DESBLOQUEO */
+function verificar(){
+let input=document.getElementById("inputPass").value;
+if(input==="27/10/2025"){
+document.getElementById("bloqueo").classList.add("oculto");
+setTimeout(()=>{
+let c=document.getElementById("contenidoSecreto");
+c.style.display="block";
+setTimeout(()=>c.classList.add("visible"),100);
+},400);
+document.getElementById("error").style.display="none";
+}else{
+document.getElementById("error").style.display="block";
+}
+}
+
+/* BOTON NO */
+function no(){
+let btn=document.getElementById("noBtn");
+btn.style.left=Math.random()*80+"vw";
+btn.style.top=Math.random()*80+"vh";
+}
+
+/* SI */
+function si(){
+document.getElementById("respuesta").style.display="block";
+}
+
+</script>
+
+</body>
+</html>
